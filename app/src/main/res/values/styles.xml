@@ -6,6 +6,36 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+    </style>
+    <style name="GreenText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#008000</item>
+    </style>
+    <style name="BlueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#002b80</item>
+    </style>
+    <style name="VioletText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#6a5acd</item>
+    </style>
+    <style name="YellowText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#DAA520</item>
+    </style>
+    <style name="RedText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#8B0000</item>
+    </style>
+    <style name="DarkText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#000080</item>
+    </style>
+    <style name="SlateText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#2F4F4F</item>
+    </style>
+    <style name="WhiteText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name="optionMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="BlackText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#000000</item>
+    </style>
 </resources>

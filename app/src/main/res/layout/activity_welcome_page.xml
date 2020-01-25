@@ -5,30 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/berlin2"
     tools:context=".WelcomePage">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mytoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/myex"
-            android:onClick="myExcursions"
-            android:text="View my Excursions"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addex"
-            android:onClick="addExcursion"
-            android:text="Add Excursion"/>
-    </LinearLayout>
+        android:id="@+id/pagetitle"
+        style="@style/WhiteText"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/WhiteText"
         android:id="@+id/list_view"/>
 
 </LinearLayout>

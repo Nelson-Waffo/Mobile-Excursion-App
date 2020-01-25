@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top"
+    android:background="@drawable/coburg"
     tools:context=".AddEditExcursion">
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        style="@style/BlueText"
         android:text="@string/addeditmessage" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,7 +27,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
+            style="@style/BlueText"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:layout_marginRight="75dp"
             android:text="Title" />
 
         <EditText
@@ -41,28 +48,44 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/BlueText"
             android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:textSize="22dp"
             android:text="Description" />
         <EditText
             android:id="@+id/ex_desc"
             android:layout_width="241dp"
-            android:inputType="text"
+            android:inputType="text|textMultiLine"
+            android:lines="10"
+            android:maxLines="16"
+            android:minLines="8"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <Button
-    android:id="@+id/add_button"
-    android:layout_width="126dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
-    android:layout_gravity="center"
-    android:onClick="excursion_adder"
-    android:text="Add Excursion" />
+        android:id="@+id/add_button"
+        style="@style/WhiteText"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_blue_dark"
+        android:onClick="excursion_adder"
+        android:text="Create Excursion"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/edit_button"
-        android:layout_width="126dp"
+        style="@style/WhiteText"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_blue_dark"
         android:onClick="excursion_editor"
-        android:text=" Save Changes" />
+        android:text="Save"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 </LinearLayout>

@@ -2,11 +2,15 @@ package de.thu.excursionapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
-public abstract class BaseActivity extends Activity {
+/**
+ * An abstract class used to get an instance of the database helper
+ */
+public abstract class BaseActivity extends AppCompatActivity {
     protected static DatabaseHelper database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +20,23 @@ public abstract class BaseActivity extends Activity {
         database = DatabaseHelper.getInstance(this);
     }
 
-    // show all the data using alert
-    // a method to display an alert dialog
-    public void showMessage(String title, String message){
+    /**
+     * A method to display messages to the user
+     * @param title
+     * @param message
+     * @param voice
+     */
+    public void showMessage(String title, String message, final String voice){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(message);
-        // show the dialog
+        builder.setCancelable(true);
+        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), voice, Toast.LENGTH_SHORT).show();
+            }
+        });
         builder.show();
     }
 }

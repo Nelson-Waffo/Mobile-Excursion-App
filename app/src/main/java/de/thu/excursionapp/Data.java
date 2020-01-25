@@ -29,19 +29,13 @@ public class Data {
     public static final String Booking_Table = "Create Table "+Booking_Table_Name+ "(" +
             Booking_Col1 + "  Text, \n"
             + Booking_Col2 + " Text, "
-            + "Primary Key("+Booking_Col1+", "+Booking_Col2+"))";
-
-   /* public static final String Booking_Table = "Create Table "+Booking_Table_Name+ "(" +
-            Booking_Col1 + "  Text, \n"
-            + Booking_Col2 + " Text, \n"
-            +  "Primary Key("
-           + Booking_Col1
-           + ", "+Booking_Col2+") \n"
-            +"Foreign Key ("+Booking_Col1+") References "+Student_Table_Name+"("+Student_Col1+"), \n"
-            + "Foreign Key ("+Booking_Col2+") References "+Excursion_Table_Name+"("+Excursion_Col1+");";*/
+            + "Primary Key("+Booking_Col1+", "+Booking_Col2+")" +
+            ", " +
+            "Foreign Key ("+ Booking_Col1+") References "+Student_Table_Name+"("+Student_Col1+"), "+
+            "Foreign Key ("+ Booking_Col2+") References "+Excursion_Table_Name+"("+Excursion_Col1+"))";
 
     public static final String DropStudent = "Drop Table If Exists "+ Student_Table_Name;
     public static final String DropOrganiser = "Drop Table If Exists "+ Organiser_Table_Name;
-    public static final String DropExcursion = "Drop Table If Exists "+ Organiser_Table_Name;
+    public static final String DropExcursion = "Drop Table If Exists "+ Excursion_Table_Name;
     public static final String DropBooking = "Drop Table If Exists "+ Booking_Table_Name;
 }

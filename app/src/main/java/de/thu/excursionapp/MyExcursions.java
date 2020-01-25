@@ -1,49 +1,60 @@
-// this class shows all your current excursions
 package de.thu.excursionapp;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * A class which simply lists the excursions of a given student
+ */
 public class MyExcursions extends BaseActivity {
     private DatabaseHelper database;
     private String username;
+    private TextView page_title;
     ArrayList<String> excursions;
+
+    /**
+     * A method to display the current excursions of a student
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_excursions);
+        setContentView(R.layout.myexcursions);
         // get the instance
         database=super.database;
-        // get the username
+        // get the username of this student from the previous page
         username = (String) getIntent().getSerializableExtra("username");
-        // get the excursions
-        Cursor result = database.viewMyExcursions(username);
-        // create a arraylist for the excursions
+        // get the excursions of this student
+        Cursor result = database.searchExcursions(username, Data.Booking_Col2, Data.Booking_Col1, Data.Booking_Table_Name);
+        // create a array list for the excursions of this student
         excursions = new ArrayList<>();
-        excursions.add("Check out your excursions below");
-        excursions.add("");
+        // set title of the page
+        page_title = findViewById(R.id.pagetext);
         while(result.moveToNext()){
             excursions.add(result.getString(0));
         }
+        if(excursions.size() > 0){
+            page_title.setText("Your Excursions");
+        }
+        else{
+            page_title.setText("Your List of Excursions is Empty");
+        }
         // create the adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.myexcursions, R.id.my, excursions);
-        // create a reference to this listview
-        ListView listview = findViewById(R.id.listex);
-        // display my excursions
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.my_excursion_items, R.id.my_items, excursions);
+        // create a reference to the list view
+        ListView listview = findViewById(R.id.my_ex_list);
+        // display the excursions of this student
         listview.setAdapter(adapter);
 
-        // now the description for this excursion should be fetched
-
-        // now you want to be able to click on an excursion and view the description then decide whether to delete it or not
+        // a listener which makes it possible to interact with the list entries
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MyExcursions.this, DescriptionPage.class);
@@ -52,9 +63,21 @@ public class MyExcursions extends BaseActivity {
                 intent.putExtra("description", database.searchExcursionTable(excursions.get(i), Data.Excursion_Col2, Data.Excursion_Col1, Data.Excursion_Table_Name));
                 intent.putExtra("choice", "cancel");
                 intent.putExtra("username", username);
+                intent.putExtra("userType", Data.Student_Table_Name);
                 startActivity(intent);
             }
         });
 
+    }
+
+    /**
+     * A method to direct flow in the app with the back button
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MyExcursions.this, WelcomePage.class);
+        intent.putExtra("username", username);
+        intent.putExtra("table", Data.Student_Table_Name);
+        startActivity(intent);
     }
 }

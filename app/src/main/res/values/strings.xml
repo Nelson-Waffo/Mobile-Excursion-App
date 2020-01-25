@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">ExcursionApp</string>
+    <string name="app_name">Excursion Manager</string>
     <string name="welcome"> WELCOME TO YOUR EXCURSION MANAGER </string>
     <string name="login_message">PLEASE LOG IN</string>
     <string name="register_message"> STUDENT REGISTRATION PORTAL </string>
     <string name="student_radio">Student</string>
     <string name="organiser_radio">Organiser</string>
-    <string name="addeditmessage">PLEASE ENTER AN EXCURSION HERE</string>
+    <string name="addeditmessage">EXCURSION CREATION</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
 </resources>

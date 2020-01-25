@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/my"
     android:textStyle="bold"
     android:textColor="@color/colorAccent"
     android:textFontWeight="16"
-    android:layout_height="match_parent"/>
+    android:background="@drawable/kolnerdom"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pagetext"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        style="@style/WhiteText"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_ex_list"/>
+ </LinearLayout>
+

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int Version = 2;
+    public static final int Version = 8;
     private static DatabaseHelper database;
 
     private DatabaseHelper(@Nullable Context context) {
@@ -25,7 +25,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database;
     }
 
-
+    /**
+     * A mthod to create the tables
+     * @param sqLiteDatabase
+     */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // create the tables
@@ -35,42 +38,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(Data.Booking_Table);
     }
 
+    /**
+     * A method to upgrade the tables
+     * @param sqLiteDatabase
+     * @param i
+     * @param i1
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-         // drop tables to upgrade them
-        sqLiteDatabase.execSQL(Data.DropStudent);
-        sqLiteDatabase.execSQL(Data.DropOrganiser);
-        sqLiteDatabase.execSQL(Data.DropExcursion);
-        sqLiteDatabase.execSQL(Data.DropBooking);
-        onCreate(sqLiteDatabase);
+         // drop tables and create new tables
+            if(i < i1) {
+                sqLiteDatabase.execSQL(Data.DropStudent);
+                sqLiteDatabase.execSQL(Data.DropOrganiser);
+                sqLiteDatabase.execSQL(Data.DropExcursion);
+                sqLiteDatabase.execSQL(Data.DropBooking);
+                onCreate(sqLiteDatabase);
+            }
     }
 
-    // load organiser table
-    public void loadOrganiser(){
+    /**
+     * load the organiser table
+     */
+    public long loadOrganiser(){
+        // get an instance of the writable database
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues1 = new ContentValues();
-        contentValues1.put(Data.Organiser_Col1, "Master");
-        contentValues1.put(Data.Organiser_Col2, "manages");
-        contentValues1.put(Data.Organiser_Col1, "Mistress");
-        contentValues1.put(Data.Organiser_Col2, "manages");
-        database.insert(Data.Organiser_Table_Name, null, contentValues1);
-
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(Data.Excursion_Col1, "BMW Excursion");
-        contentValues2.put(Data.Excursion_Col2, " visit the biggest company in Germany");
-        contentValues2.put(Data.Excursion_Col3, "bmw");
-        contentValues2.put(Data.Excursion_Col1, "Berlin visit");
-        contentValues2.put(Data.Excursion_Col2, " visit the capital of Germany");
-        contentValues2.put(Data.Excursion_Col3, "city");
-        contentValues2.put(Data.Excursion_Col1, "Vector Excursion");
-        contentValues2.put(Data.Excursion_Col2, "visit the biggest company in Stuttgart");
-        contentValues2.put(Data.Excursion_Col3, "vector");
-       database.insert(Data.Excursion_Table_Name, null, contentValues2);
+        contentValues1.put(Data.Organiser_Col1, "organiser");
+        contentValues1.put(Data.Organiser_Col2, "organiser");
+        long num = database.insert(Data.Organiser_Table_Name, null, contentValues1);
+       return num;
     }
 
-    // insert method for the registration
+    /**
+     * An insert method for the registration of students
+     * @param entry1
+     * @param entry2
+     * @param table
+     * @param column1
+     * @param column2
+     * @return
+     */
     public boolean insertData(String entry1, String entry2, String table, String column1, String column2){
-        // first get an instance of the database
+        // first get an instance of the writable database
         SQLiteDatabase database = this.getWritableDatabase();
         // store the values in a content values object
         ContentValues contentValues = new ContentValues();
@@ -84,11 +93,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    // a method for checking the login
+    /**
+     * a method using for logging in users
+     * @param username
+     * @param password
+     * @param table
+     * @return
+     */
     public Cursor checkLogin(String username, String password, String table){
         Cursor result = null;
-        // get the writable database instance
-        SQLiteDatabase database = this.getWritableDatabase();
+        // get the readable database instance
+        SQLiteDatabase database = this.getReadableDatabase();
         // login query
         String studentLogin = "select * from "+ table +" where "+Data.Student_Col1+"='"+username
                 +"' and "+Data.Student_Col2+"='"+password+"'";
@@ -108,9 +123,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * A method to return excursion details
+     * @return
+     */
     public Cursor excursionDetails(){
-        // get the writable database instance
-        SQLiteDatabase database = this.getWritableDatabase();
+        // get the readable database instance
+        SQLiteDatabase database = this.getReadableDatabase();
         // query to get all excursion titles
         String titlesQuery = "Select "+ Data.Excursion_Col1 + ", " + Data.Excursion_Col2 +" from "+ Data.Excursion_Table_Name;
         try {
@@ -121,22 +140,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
-    // returns the excursions of a given student
-    public Cursor viewMyExcursions(String username){
-        // get the writable database instance
-        SQLiteDatabase database = this.getWritableDatabase();
+
+    /**
+     * A method that returns excursion data for a given student
+     * @param value
+     * @param column1
+     * @param column2
+     * @param table
+     * @return
+     */
+    public Cursor searchExcursions(String value, String column1, String column2, String table){
+        // get the readable database instance
+        SQLiteDatabase database = this.getReadableDatabase();
         // query
-        String query = "select "+ Data.Booking_Col2 + " from "+Data.Booking_Table_Name + " where "+
-                Data.Booking_Col1 +"='"+username+"'";
+        String query = "select "+ column1 + " from "+ table + " where "+
+                column2 +"='"+value+"'";
         return database.rawQuery(query, null);
     }
 
-
-
-    // search the book table
+    /**
+     * A method to search a table and return a string value
+     * @param value
+     * @param column1
+     * @param column2
+     * @param table
+     * @return
+     */
     public String searchExcursionTable(String value, String column1, String column2, String table){
-        // get the writable database instance
-        SQLiteDatabase database = this.getWritableDatabase();
+        // get the readable database instance
+        SQLiteDatabase database = this.getReadableDatabase();
         // query
         String query = "select "+ column1 + " from "+table + " where "+
                 column2 +"='"+value+"'";
@@ -149,24 +181,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return "";
     }
 
-    // method for cancelling a booking or removing a participant
+    /**
+     *  method for cancelling a booking or removing a participant. if it returns 1, then the removal was successful
+     * @param username
+     * @param title
+     * @param table
+     * @return
+     */
+
     public Integer removeFromTable(String username, String title, String table){
         // get the writable database instance
         SQLiteDatabase database = this.getWritableDatabase();
         String[] elements = {username, title};
+        // delete the requested entry
         return database.delete(table, "student = ? and excursion = ?", elements);
     }
-    // method for cancelling a booking or removing a participant
-    public Integer deleteExcursion(String title){
+
+    /**
+     * method for cancelling a booking or removing a participant. if it returns 1, then everything went well
+     * @param title
+     */
+    public Integer deleteExcursion(String title) {
         // get the writable database instance
         SQLiteDatabase database = this.getWritableDatabase();
         String[] elements = {title};
-        return database.delete(Data.Excursion_Table_Name, "title = ?", elements);
+        // an excursion can only be deleted, if no one has booked it. before deleting an excursion,
+        // the organiser must first remove all its participants from the list
+        Cursor result = searchExcursions(title, Data.Booking_Col1, Data.Booking_Col2, Data.Booking_Table_Name);
+        String temp = "";
+        while(result.moveToNext()){
+            // to see if even one student name will be returned
+            temp = result.getString(0);
+        }
+        // in case of no returned name, the deletion can take place
+        if (temp.length() == 0){
+            return database.delete(Data.Excursion_Table_Name, "title = ?", elements);
+         }
+        // if there was a student name then there is still a booked student. no deletion in this case
+        return 0;
     }
 
-    // update method
+    /**
+     * A method to update a record a table
+     * @param oldValue
+     * @param newValue1
+     * @param newValue2
+     * @param column1
+     * @param column2
+     * @param table
+     * @return
+     */
     public boolean updateTable(String oldValue, String newValue1, String newValue2, String column1, String column2, String table){
-        // get the sqldatabase instance
+        // get the writable sql database instance
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         // fill it
@@ -176,17 +242,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.update(table, contentValues, "title=?", value);
         return true;
     }
-
-    public Cursor getAllData(){
-        // get the sqldatabase instance
-        SQLiteDatabase database = this.getWritableDatabase();
-        // instance of a cursor class
-        // query the database and store the result in the cursor instance
-        Cursor result = database.rawQuery("select * from "+Data.Organiser_Table_Name, null);
-        return result;
-    }
-
-
-
 
 }

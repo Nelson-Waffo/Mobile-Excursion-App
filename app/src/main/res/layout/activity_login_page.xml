@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/ulm4"
     tools:context=".LoginPage">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:textStyle="bold"
+        style="@style/WhiteText"
+        android:textSize="22dp"
         android:text="@string/login_message" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,12 +23,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            style="@style/WhiteText"
+            android:textSize="22dp"
             android:layout_marginRight="10dp"
-            android:text="User Name"/>
+            android:text="@string/username"/>
 
         <EditText
             android:id="@+id/login_username"
             android:layout_width="241dp"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
@@ -36,20 +43,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Password"/>
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            style="@style/WhiteText"
+            android:text="@string/password"/>
         <EditText
             android:id="@+id/login_password"
             android:layout_width="241dp"
+            android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <Button
         android:id="@+id/login_button"
         android:layout_width="126dp"
+        android:textSize="18dp"
+        style="@style/WhiteText"
+        android:background="@android:color/holo_blue_dark"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:onClick="loginHandler"
+        android:textStyle="bold"
         android:text="Log In" />
     <RadioGroup
         android:layout_width="match_parent"
@@ -61,11 +77,17 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/student_radio"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            style="@style/WhiteText"
             android:onClick="onClickRadioButton"/>
         <RadioButton android:id="@+id/organiser_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/organiser_radio"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            style="@style/WhiteText"
             android:onClick="onClickRadioButton"/>
     </RadioGroup>
 
