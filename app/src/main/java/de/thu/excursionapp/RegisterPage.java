@@ -8,7 +8,7 @@ import android.widget.EditText;
  */
 public class RegisterPage extends BaseActivity {
     private static DatabaseHelper database;
-    private EditText username, password;
+    private EditText username, password, confirmPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +18,7 @@ public class RegisterPage extends BaseActivity {
         // get user name and password of the future user
         username = findViewById(R.id.register_username);
         password = findViewById(R.id.register_password);
+        confirmPassword = findViewById(R.id.confirmed_password);
     }
 
     /**
@@ -27,11 +28,13 @@ public class RegisterPage extends BaseActivity {
     public void registerHandler(View view){
             String the_name = username.getText().toString();
             String the_password = password.getText().toString();
+            String the_confirmed_password = confirmPassword.getText().toString();
             // make sure there no space
             if(the_name.contains(" ") || the_password.contains(" ")){
                 showMessage("Failure", "no space allowed in your credentials", "no space allowed");
                 username.setText("");
                 password.setText("");
+                confirmPassword.setText("");
                 return;
             }
             // the first character cannot be a digit
@@ -39,6 +42,14 @@ public class RegisterPage extends BaseActivity {
                 showMessage("Failure", "The first character cannot be a digit", "no digits allowed");
                 username.setText("");
                 password.setText("");
+                confirmPassword.setText("");
+                return;
+            }
+            // make sure both entered passwords match
+            if(!the_password.equals(the_confirmed_password)){
+               showMessage("Failure", "entered passwords do not match", "type carefully");
+                password.setText("");
+                confirmPassword.setText("");
                 return;
             }
             // inform the user whether it was successful or not
@@ -47,11 +58,13 @@ public class RegisterPage extends BaseActivity {
                 showMessage("Confirmation", "Successful Registration", "new student registered");
                 username.setText("");
                 password.setText("");
+                confirmPassword.setText("");
             }
             else{
                 showMessage("Failure", "Failed registration", "try again");
                 username.setText("");
                 password.setText("");
+                confirmPassword.setText("");
             }
     }
 

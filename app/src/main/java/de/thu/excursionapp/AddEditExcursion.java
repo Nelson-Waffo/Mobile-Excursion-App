@@ -46,6 +46,10 @@ public class AddEditExcursion extends BaseActivity {
         // set text to be edited
         title.setText(currentTitle);
         description.setText(currentDescription);
+        // if the user does not modify anything in the edit window,
+        // and just exits it then the new title and description are:
+        newTitle = title.getText().toString();
+        newDesc = description.getText().toString();
         // set the welcome message, based on the user choice
         if(choice.equals("add")){
             edit.setVisibility(View.INVISIBLE);
@@ -97,7 +101,7 @@ public class AddEditExcursion extends BaseActivity {
      * @param view
      */
     public void excursion_editor(View view){
-        // extract the edited text for this excursion
+        // extract the edited text for this excursion and set them as new title and description
         newTitle = title.getText().toString();
         newDesc = description.getText().toString();
         // edit the excursion

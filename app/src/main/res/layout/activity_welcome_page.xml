@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/pagetitle"
         style="@style/WhiteText"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="25sp"
         />
 
     <ListView

@@ -6,6 +6,7 @@
  * organisers cannot log in, their details are loaded when the app starts. existing organiser login details are:
  * username: organiser
  * password: organiser
+ * gitHub: https://github.com/Nelson-Waffo/Mobile-Excursion-App
  */
 package de.thu.excursionapp;
 import android.content.Intent;

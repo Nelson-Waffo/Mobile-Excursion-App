@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/textview"
         style="@style/WhiteText"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="24sp"
         />
     <ListView
         android:layout_width="match_parent"

@@ -88,7 +88,7 @@ public class Participants extends BaseActivity {
      */
     public void showParticipants(){
         // get all the student of a given excursion
-        mTextView.setText("Participants in \n"+ title);
+        mTextView.setText("   Participants in \n"+ title);
         Cursor result = database.searchExcursions(title, Data.Booking_Col1, Data.Booking_Col2, Data.Booking_Table_Name);
         if(result.getCount()>0) {
             // add all the students in the array list

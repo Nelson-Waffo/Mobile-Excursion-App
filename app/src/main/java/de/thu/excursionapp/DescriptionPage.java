@@ -114,10 +114,10 @@ public class DescriptionPage extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // book this excursion
                 if(database.insertData(username, mTitle, Data.Booking_Table_Name, Data.Booking_Col1, Data.Booking_Col2)){
-                    showMessage("Confirmation", "Excursion " + mTitle + " was successfully booked by you", "you are booked.");
+                    showMessage("Confirmation", mTitle + " was successfully booked by you", "you are booked.");
                 }
                 else{
-                    showMessage("Failure", "Excursion " + mTitle + " could not be booked.", "You have probably " +
+                    showMessage("Failure", mTitle + " could not be booked.", "You have probably " +
                             "already booked it");
                 }
             }
@@ -147,7 +147,7 @@ public class DescriptionPage extends BaseActivity {
                     showMessage("Confirmation", "Booking of "+mTitle+" was successfully cancelled", "cancelled booking");
                 }
                 else{
-                    showMessage("Failure", "The booking of excursion " + mTitle + " could not be cancelled",
+                    showMessage("Failure", "The booking of " + mTitle + " could not be cancelled",
                             "you have probably already cancelled it");
                 }
             }
@@ -193,7 +193,7 @@ public class DescriptionPage extends BaseActivity {
                     startActivity(intent);
                 }
                 else{
-                    showMessage("Error", "Excursion " + mTitle + " could not be deleted", "it probably still has participants");
+                    showMessage("Error", mTitle + " could not be deleted", "it probably still has participants");
                 }
             }
         });
